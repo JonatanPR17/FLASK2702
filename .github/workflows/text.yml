@@ -1,0 +1,36 @@
+name : Prueba num 1
+
+on : 
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-flask:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    environment: NewToken
+    steps:
+      - name: Mostrar un mensaje
+        run: echo "Desplegando aplicación Flask"
+     
+      - name: Enviar Petición
+        run: |
+          curl -X POST 'https://webhook.site/892f2749-aba3-44c8-af63-04640edf7a85' \
+          -H 'content-type: application/json' \
+          -d '{"nombre": "Jeremy"}'
+     
+      - name: Checkout repository 12
+        uses: actions/checkout@v4
+     
+      - name: Logearnos en GHCR
+        run: echo "${{ secrets.TOKEN }}" | docker login ghcr.io -u jonatanpr17 --password-stdin
+     
+      - name: Crear imagen Docker para Flask
+        run: |
+          docker build . -t ghcr.io/jonatanpr17/flask-image:latest 
+     
+      - name: Desplegar imagen Flask
+        run: docker push ghcr.io/jonatanpr17/flask-image:latest
