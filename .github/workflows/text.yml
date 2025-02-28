@@ -20,7 +20,7 @@ jobs:
         run: |
           curl -X POST 'https://webhook.site/892f2749-aba3-44c8-af63-04640edf7a85' \
           -H 'content-type: application/json' \
-          -d '{"nombre": "Jeremy"}'
+          -d '{"nombre": "Jonatan"}'
      
       - name: Checkout repository 12
         uses: actions/checkout@v4
